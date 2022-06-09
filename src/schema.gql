@@ -2,6 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserInput {
+    """Example field (placeholder)"""
+    exampleField: Int!
+}
+
+type Mutation {
+    createUser(createUserInput: CreateUserInput!): String!
+    removeUser(id: Int!): User!
+    updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
 type Query {
-    isLogin: Boolean!
+    user(id: Int!): String!
+}
+
+input UpdateUserInput {
+    """Example field (placeholder)"""
+    exampleField: Int
+    id: Int!
+}
+
+type User {
+    """Example field (placeholder)"""
+    exampleField: Int!
 }

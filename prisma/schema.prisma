@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model user {
+  id         BigInt   @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isDel      Boolean  @default(false)
+  nickname   String?
+  intro      String?
+  tags       tag[]
+  location   location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId BigInt
+  sector     sector[]
+}
+
+model tag {
+  id        BigInt   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  category  String?
+  name      String
+  isDel     Boolean  @default(false)
+  user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    BigInt?
+}
+
+model location {
+  id        BigInt   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  isDel     Boolean  @default(false)
+  user      user[]
+}
+
+model sector {
+  id        BigInt   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  isDel     Boolean  @default(false)
+  user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    BigInt?
+}
