@@ -13,44 +13,44 @@ datasource db {
 }
 
 model user {
-  id         BigInt   @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  isDel      Boolean  @default(false)
+  id         BigInt    @id @default(autoincrement())
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  isDel      Boolean   @default(false) @map("is_del")
   nickname   String?
   intro      String?
   tags       tag[]
-  location   location @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  locationId BigInt
+  location   location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId BigInt?   @map("location_id")
   sector     sector[]
 }
 
 model tag {
   id        BigInt   @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   category  String?
   name      String
-  isDel     Boolean  @default(false)
+  isDel     Boolean  @default(false) @map("is_del")
   user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    BigInt?
+  userId    BigInt?  @map("user_id")
 }
 
 model location {
   id        BigInt   @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   name      String
-  isDel     Boolean  @default(false)
+  isDel     Boolean  @default(false) @map("is_del")
   user      user[]
 }
 
 model sector {
   id        BigInt   @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   name      String
-  isDel     Boolean  @default(false)
+  isDel     Boolean  @default(false) @map("is_del")
   user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    BigInt?
+  userId    BigInt?  @map("user_id")
 }

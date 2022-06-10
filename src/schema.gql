@@ -2,28 +2,98 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateLocationInput {
+  """지역이름"""
+  name: String!
+}
+
 input CreateUserInput {
+  """자기소개"""
+  intro: String!
+
+  """지역"""
+  locationId: Int!
+
+  """닉네임"""
+  nickname: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Location {
   """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: DateTime!
+
+  """Example field (placeholder)"""
+  id: Int!
+
+  """Example field (placeholder)"""
+  isDel: Boolean!
+
+  """Example field (placeholder)"""
+  name: String!
+
+  """Example field (placeholder)"""
+  updatedAt: DateTime!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): String!
+  createLocation(createLocationInput: CreateLocationInput!): Location!
+  createUser(createUserInput: CreateUserInput!): User!
+  removeLocation(id: Int!): Location!
   removeUser(id: Int!): User!
+  updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
-  user(id: Int!): String!
+  location(id: Int!): Location!
+  locationAll: [Location!]!
+  user(id: Int!): User!
+}
+
+input UpdateLocationInput {
+  id: Int!
+
+  """지역이름"""
+  name: String
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+
+  """자기소개"""
+  intro: String
+
+  """지역"""
+  locationId: Int
+
+  """닉네임"""
+  nickname: String
 }
 
 type User {
   """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: DateTime!
+
+  """Example field (placeholder)"""
+  id: Int!
+
+  """Example field (placeholder)"""
+  intro: String!
+
+  """Example field (placeholder)"""
+  isDel: Boolean!
+
+  """Example field (placeholder)"""
+  location: Location!
+
+  """Example field (placeholder)"""
+  nickname: String!
+
+  """Example field (placeholder)"""
+  updatedAt: DateTime!
 }
