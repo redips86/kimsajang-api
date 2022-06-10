@@ -13,7 +13,7 @@ export class LocationService {
     });
     console.log(newLocation);
 
-    return newLocation;
+    return JSON.parse(JSON.stringify(newLocation));
   }
 
   async findAll() {
