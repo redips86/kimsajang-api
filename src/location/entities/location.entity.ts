@@ -3,9 +3,9 @@ import { Common } from '@common/entities/common.entity';
 
 @ObjectType()
 export class Location extends Common {
-  @Field(() => String, { description: 'Example field (placeholder)' })
+  @Field(() => String, { description: '지역명' })
   name: string;
 
-  @Field(() => Boolean, { description: 'Example field (placeholder)' })
+  @Field(() => Boolean, { description: '삭제여부' })
   isDel: boolean;
 }

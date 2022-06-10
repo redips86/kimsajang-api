@@ -4,15 +4,24 @@ import { Location } from '../../location/entities/location.entity';
 
 @ObjectType()
 export class User extends Common {
-  @Field(() => Boolean, { description: 'Example field (placeholder)' })
+  @Field(() => Boolean, { description: '삭제여부' })
   isDel: boolean;
 
-  @Field(() => String, { description: 'Example field (placeholder)' })
-  nickname: string;
+  @Field(() => String, {
+    nullable: true,
+    description: '닉네임',
+  })
+  nickname?: string;
 
-  @Field(() => String, { description: 'Example field (placeholder)' })
-  intro: string;
+  @Field(() => String, {
+    nullable: true,
+    description: '자기 소개',
+  })
+  intro?: string;
 
-  @Field(() => Location, { description: 'Example field (placeholder)' })
-  location: Location;
+  @Field(() => Location, {
+    nullable: true,
+    description: '지역',
+  })
+  location?: Location;
 }

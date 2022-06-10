@@ -9,29 +9,29 @@ input CreateLocationInput {
 
 input CreateUserInput {
   """자기소개"""
-  intro: String!
+  intro: String
 
   """지역"""
-  locationId: Int!
+  locationId: Int
 
   """닉네임"""
-  nickname: String!
+  nickname: String
 }
 
 type Location {
-  """Example field (placeholder)"""
+  """생성일시"""
   createdAt: String!
 
-  """Example field (placeholder)"""
+  """ID"""
   id: Int!
 
-  """Example field (placeholder)"""
+  """삭제여부"""
   isDel: Boolean!
 
-  """Example field (placeholder)"""
+  """지역명"""
   name: String!
 
-  """Example field (placeholder)"""
+  """수정일시"""
   updatedAt: String!
 }
 
@@ -51,6 +51,7 @@ type Query {
 }
 
 input UpdateLocationInput {
+  """지역 ID"""
   id: Int!
 
   """지역이름"""
@@ -58,6 +59,7 @@ input UpdateLocationInput {
 }
 
 input UpdateUserInput {
+  """사용자 ID"""
   id: Int!
 
   """자기소개"""
@@ -71,24 +73,24 @@ input UpdateUserInput {
 }
 
 type User {
-  """Example field (placeholder)"""
+  """생성일시"""
   createdAt: String!
 
-  """Example field (placeholder)"""
+  """ID"""
   id: Int!
 
-  """Example field (placeholder)"""
-  intro: String!
+  """자기 소개"""
+  intro: String
 
-  """Example field (placeholder)"""
+  """삭제여부"""
   isDel: Boolean!
 
-  """Example field (placeholder)"""
-  location: Location!
+  """지역"""
+  location: Location
 
-  """Example field (placeholder)"""
-  nickname: String!
+  """닉네임"""
+  nickname: String
 
-  """Example field (placeholder)"""
+  """수정일시"""
   updatedAt: String!
 }
