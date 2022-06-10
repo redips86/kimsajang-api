@@ -18,8 +18,18 @@ export class LocationService {
 
   async findAll() {
     const allLocation = await prisma.location.findMany();
+
     console.log(allLocation);
-    return await prisma.location.findMany();
+    console.log(typeof allLocation[0].id);
+    const re = JSON.parse(
+      JSON.stringify(
+        allLocation,
+        (key, value) => (typeof value === 'bigint' ? value.toString() : value), // return everything else unchanged
+      ),
+    );
+    console.log(re);
+
+    return re;
   }
 
   findOne(id: number) {

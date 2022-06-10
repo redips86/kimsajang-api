@@ -12,45 +12,53 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model user {
+model User {
   id         BigInt    @id @default(autoincrement())
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
   isDel      Boolean   @default(false) @map("is_del")
   nickname   String?
   intro      String?
-  tags       tag[]
-  location   location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  tags       Tag[]
+  location   Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
   locationId BigInt?   @map("location_id")
-  sector     sector[]
+  sector     Sector[]
+
+  @@map("user")
 }
 
-model tag {
+model Tag {
   id        BigInt   @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   category  String?
   name      String
   isDel     Boolean  @default(false) @map("is_del")
-  user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    BigInt?  @map("user_id")
+
+  @@map("tag")
 }
 
-model location {
+model Location {
   id        BigInt   @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   name      String
   isDel     Boolean  @default(false) @map("is_del")
-  user      user[]
+  user      User[]
+
+  @@map("location")
 }
 
-model sector {
+model Sector {
   id        BigInt   @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   name      String
   isDel     Boolean  @default(false) @map("is_del")
-  user      user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    BigInt?  @map("user_id")
+
+  @@map("sector")
 }

@@ -5,9 +5,9 @@ export class Common {
   @Field(() => Int, { description: 'Example field (placeholder)' })
   id: number;
 
-  @Field(() => Date, { description: 'Example field (placeholder)' })
+  @Field(() => String, { description: 'Example field (placeholder)' })
   createdAt: Date;
 
-  @Field(() => Date, { description: 'Example field (placeholder)' })
+  @Field(() => String, { description: 'Example field (placeholder)' })
   updatedAt: Date;
 }
