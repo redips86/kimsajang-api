@@ -1,5 +1,5 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Common } from '@common/entities/common.entity';
+import { Field, ObjectType } from "@nestjs/graphql";
+import { Common } from "@common/entities/common.entity";
 
 @ObjectType()
 export class Location extends Common {
@@ -7,5 +7,5 @@ export class Location extends Common {
   name: string;
 
   @Field(() => Boolean, { description: '삭제여부' })
-  isDel: boolean;
+  deleted: boolean;
 }

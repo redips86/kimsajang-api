@@ -5,7 +5,7 @@ import { Common } from "@common/entities/common.entity";
 @ObjectType()
 export class User extends Common {
   @Field(() => Boolean, { description: '삭제여부' })
-  isDel: boolean;
+  deleted: boolean;
 
   @Field(() => String, {
     nullable: true,

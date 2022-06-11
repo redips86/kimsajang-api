@@ -25,11 +25,11 @@ type Location {
   """생성일시"""
   createdAt: String!
 
+  """삭제여부"""
+  deleted: Boolean!
+
   """ID"""
   id: Int!
-
-  """삭제여부"""
-  isDel: Boolean!
 
   """지역명"""
   name: String!
@@ -83,14 +83,14 @@ type User {
   """생성일시"""
   createdAt: String!
 
+  """삭제여부"""
+  deleted: Boolean!
+
   """ID"""
   id: Int!
 
   """자기 소개"""
   intro: String
-
-  """삭제여부"""
-  isDel: Boolean!
 
   """지역"""
   location: Location

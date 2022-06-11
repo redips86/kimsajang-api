@@ -64,10 +64,7 @@ export class UserService {
   async remove(id: number) {
     await this.findOne(id);
 
-    await prisma.user.update({
-      data: {
-        isDel: true,
-      },
+    await prisma.user.delete({
       where: {
         id,
       },
