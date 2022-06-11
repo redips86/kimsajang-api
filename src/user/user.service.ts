@@ -3,19 +3,14 @@ import prisma from '@libs/prisma-client';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-core';
+import { LocationService } from '../location/location.service';
 
 @Injectable()
 export class UserService {
-  async create(createUserInput: CreateUserInput) {
-    const location = await prisma.location.findUnique({
-      where: {
-        id: createUserInput.locationId,
-      },
-    });
+  constructor(private readonly locationService: LocationService) {}
 
-    if (!location) {
-      throw new ApolloError(`location ${createUserInput.locationId} not found`);
-    }
+  async create(createUserInput: CreateUserInput) {
+    await this.locationService.findOne(createUserInput.locationId);
 
     await prisma.user.create({
       data: {

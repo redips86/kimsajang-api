@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { CreateLocationInput } from './dto/create-location.input';
 import { UpdateLocationInput } from './dto/update-location.input';
 import prisma from '@libs/prisma-client';
+import { ApolloError } from 'apollo-server-core';
 
 @Injectable()
 export class LocationService {
   async create(createLocationInput: CreateLocationInput) {
-    const newLocation = await prisma.location.create({
+    await prisma.location.create({
       data: {
         ...createLocationInput,
       },
     });
-    console.log(newLocation);
 
-    return JSON.parse(JSON.stringify(newLocation));
+    return true;
   }
 
   async findAll() {
@@ -22,15 +22,24 @@ export class LocationService {
     return JSON.parse(JSON.stringify(allLocation));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} location`;
+  async findOne(id: number) {
+    const location = await prisma.location.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!location) {
+      throw new ApolloError(`location ${id} not found`);
+    }
+
+    return location;
   }
 
-  update(id: number, updateLocationInput: UpdateLocationInput) {
+  async update(id: number, updateLocationInput: UpdateLocationInput) {
     return `This action updates a #${id} location`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} location`;
   }
 }

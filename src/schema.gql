@@ -12,10 +12,13 @@ input CreateUserInput {
   intro: String
 
   """지역"""
-  locationId: Int
+  locationId: Float
 
   """닉네임"""
   nickname: String
+
+  """업종"""
+  sectorIds: [Float!]
 }
 
 type Location {
@@ -36,7 +39,7 @@ type Location {
 }
 
 type Mutation {
-  createLocation(createLocationInput: CreateLocationInput!): Location!
+  createLocation(createLocationInput: CreateLocationInput!): String!
   createUser(createUserInput: CreateUserInput!): Boolean!
   removeLocation(id: Int!): Location!
   removeUser(id: Int!): Boolean!
@@ -67,10 +70,13 @@ input UpdateUserInput {
   intro: String
 
   """지역"""
-  locationId: Int
+  locationId: Float
 
   """닉네임"""
   nickname: String
+
+  """업종"""
+  sectorIds: [Float!]
 }
 
 type User {

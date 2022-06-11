@@ -8,7 +8,7 @@ import { UpdateLocationInput } from './dto/update-location.input';
 export class LocationResolver {
   constructor(private readonly locationService: LocationService) {}
 
-  @Mutation(() => Location)
+  @Mutation(() => String)
   createLocation(
     @Args('createLocationInput') createLocationInput: CreateLocationInput,
   ) {

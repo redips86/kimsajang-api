@@ -10,7 +10,6 @@ export class UserMutationResolver {
 
   @Mutation(() => Boolean)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    console.log(createUserInput);
     return this.userService.create(createUserInput);
   }
 
