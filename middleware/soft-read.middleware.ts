@@ -1,4 +1,4 @@
-function softreadMiddleware(prisma) {
+function softReadMiddleware(prisma) {
   prisma.$use(async (params, next) => {
     if (params.action === 'findUnique' || params.action === 'findFirst') {
       // Change to findFirst - you cannot filter
@@ -66,4 +66,4 @@ function softreadMiddleware(prisma) {
   });
 }
 
-export default softreadMiddleware;
+export default softReadMiddleware;

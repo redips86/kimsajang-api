@@ -1,4 +1,4 @@
-function softdeleteMiddleware(prisma) {
+function softDeleteMiddleware(prisma) {
   prisma.$use(async (params, next) => {
     // Check incoming query type
     if (params.action == 'delete') {
@@ -21,4 +21,4 @@ function softdeleteMiddleware(prisma) {
   });
 }
 
-export default softdeleteMiddleware;
+export default softDeleteMiddleware;
