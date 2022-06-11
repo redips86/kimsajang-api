@@ -71,7 +71,7 @@ export class UserService {
 
     await prisma.user.update({
       data: {
-        isDel: tru,
+        isDel: true,
       },
       where: {
         id,
