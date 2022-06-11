@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import prisma from '@libs/prisma-client';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
-import { ApolloError } from 'apollo-server-core';
-import { LocationService } from '../location/location.service';
+import { Injectable } from "@nestjs/common";
+import { CreateUserInput } from "./dto/create-user.input";
+import { UpdateUserInput } from "./dto/update-user.input";
+import { ApolloError } from "apollo-server-core";
+import { LocationService } from "../location/location.service";
+import prisma from "@libs/prisma-client";
 
 @Injectable()
 export class UserService {

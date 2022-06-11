@@ -1,6 +1,6 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Common } from '@common/entities/common.entity';
-import { Location } from '../../location/entities/location.entity';
+import { Field, ObjectType } from "@nestjs/graphql";
+import { Location } from "../../location/entities/location.entity";
+import { Common } from "@common/entities/common.entity";
 
 @ObjectType()
 export class User extends Common {
