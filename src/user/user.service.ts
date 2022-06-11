@@ -2,35 +2,81 @@ import { Injectable } from '@nestjs/common';
 import prisma from '@libs/prisma-client';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ApolloError } from 'apollo-server-core';
 
 @Injectable()
 export class UserService {
   async create(createUserInput: CreateUserInput) {
-    const newUser = await prisma.user.create({
+    const location = await prisma.location.findUnique({
+      where: {
+        id: createUserInput.locationId,
+      },
+    });
+
+    if (!location) {
+      throw new ApolloError(`location ${createUserInput.locationId} not found`);
+    }
+
+    await prisma.user.create({
       data: {
         ...createUserInput,
       },
     });
-    return newUser;
+    return true;
   }
 
   async findAll() {
-    return await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: {
+        location: rue,
+      },
+    });
+
+    return JSON.parse(JSON.stringify(users));
   }
 
   async findOne(id: number) {
-    return await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
-        id,
+        i,
       },
+      include: {
+        location: tru,
+      ,
     });
+
+    if (!user) {
+      throw new ApolloError(`user ${id} not found`);
+    }
+
+    return JSON.parse(JSON.stringify(user));
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserInput: UpdateUserInput) {
+    await this.findOne(id);
+
+    const user = await prisma.user.update({
+      data: {
+        ...updateUserInpu,
+      },
+      where: {
+        i,
+      ,
+    });
+    return true;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    await this.findOne(id);
+
+    await prisma.user.update({
+      data: {
+        isDel: tru,
+      },
+      where: {
+        i,
+      ,
+    });
+    return true;
   }
 }

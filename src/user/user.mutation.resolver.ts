@@ -8,18 +8,18 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UserMutationResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     console.log(createUserInput);
     return this.userService.create(createUserInput);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.userService.update(updateUserInput.id, updateUserInput);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   removeUser(@Args('id', { type: () => Int }) id: number) {
     return this.userService.remove(id);
   }

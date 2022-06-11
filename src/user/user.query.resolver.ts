@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 export class UserQueryResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Query(() => [User], { name: 'user' })
+  @Query(() => [User], { name: 'users' })
   findAll() {
     return this.userService.findAll();
   }

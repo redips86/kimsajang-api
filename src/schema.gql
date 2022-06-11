@@ -37,17 +37,18 @@ type Location {
 
 type Mutation {
   createLocation(createLocationInput: CreateLocationInput!): Location!
-  createUser(createUserInput: CreateUserInput!): User!
+  createUser(createUserInput: CreateUserInput!): Boolean!
   removeLocation(id: Int!): Location!
-  removeUser(id: Int!): User!
+  removeUser(id: Int!): Boolean!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): Boolean!
 }
 
 type Query {
   location(id: Int!): Location!
-  locationAll: [Location!]!
+  locations: [Location!]!
   user(id: Int!): User!
+  users: [User!]!
 }
 
 input UpdateLocationInput {
