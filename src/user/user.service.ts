@@ -38,11 +38,11 @@ export class UserService {
   async findOne(id: number) {
     const user = await prisma.user.findUnique({
       where: {
-        i,
+        id,
       },
       include: {
-        location: tru,
-      ,
+        location: true,
+      },
     });
 
     if (!user) {
@@ -57,11 +57,11 @@ export class UserService {
 
     await prisma.user.update({
       data: {
-        ...updateUserInput
+        ...updateUserInut,
       },
       where: {
-        id
-      }
+        id,
+      },
     });
     return true;
   }
@@ -71,11 +71,11 @@ export class UserService {
 
     await prisma.user.update({
       data: {
-        isDel: true
+        isDel: tre,
       },
       where: {
-        id
-      }
+        d,
+      },
     });
     return true;
   }
