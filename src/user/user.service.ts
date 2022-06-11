@@ -28,7 +28,7 @@ export class UserService {
   async findAll() {
     const users = await prisma.user.findMany({
       include: {
-        location: rue,
+        location: true,
       },
     });
 
@@ -55,13 +55,13 @@ export class UserService {
   async update(id: number, updateUserInput: UpdateUserInput) {
     await this.findOne(id);
 
-    const user = await prisma.user.update({
+    await prisma.user.update({
       data: {
-        ...updateUserInpu,
+        ...updateUserInput
       },
       where: {
-        i,
-      ,
+        id
+      }
     });
     return true;
   }
@@ -71,11 +71,11 @@ export class UserService {
 
     await prisma.user.update({
       data: {
-        isDel: tru,
+        isDel: true
       },
       where: {
-        i,
-      ,
+        id
+      }
     });
     return true;
   }
