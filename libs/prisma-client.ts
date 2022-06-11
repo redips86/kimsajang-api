@@ -13,5 +13,6 @@ if (process.env.NODE_ENV === 'development') global.client = client;
 
 dateMiddleware(prisma);
 softreadMiddleware(prisma);
+softreadMiddleware(prisma);
 
 export default prisma;
