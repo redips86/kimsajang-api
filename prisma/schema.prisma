@@ -12,53 +12,81 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+/// 사용자
 model User {
-  id         BigInt    @id @default(autoincrement())
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
-  deleted    Boolean   @default(false)
+  id         BigInt       @id @default(autoincrement())
+  deleted    Boolean      @default(false)
   nickname   String?
   intro      String?
-  tags       Tag[]
-  location   Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  locationId BigInt?   @map("location_id")
-  sector     Sector[]
+  UserTag    UserTag[]
+  location   Location?    @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId BigInt?      @map("location_id")
+  userSector UserSector[]
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
 
   @@map("user")
 }
 
+/// 태그
 model Tag {
-  id        BigInt   @id @default(autoincrement())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id        BigInt    @id @default(autoincrement())
   category  String?
   name      String
-  deleted   Boolean  @default(false)
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    BigInt?  @map("user_id")
+  deleted   Boolean   @default(false)
+  UserTag   UserTag[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
 
   @@map("tag")
 }
 
-model Location {
-  id        BigInt   @id @default(autoincrement())
+/// 사용자_태그
+model UserTag {
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    BigInt
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     BigInt
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([userId, tagId])
+  @@map("user_tag")
+}
+
+/// 지역
+model Location {
+  id        BigInt   @id @default(autoincrement())
   name      String
   deleted   Boolean  @default(false)
   user      User[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("location")
 }
 
+/// 업종
 model Sector {
-  id        BigInt   @id @default(autoincrement())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  name      String
-  deleted   Boolean  @default(false)
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    BigInt?  @map("user_id")
+  id         BigInt       @id @default(autoincrement())
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+  name       String
+  deleted    Boolean      @default(false)
+  userSector UserSector[]
 
   @@map("sector")
+}
+
+/// 사용자_업종
+model UserSector {
+  userId    BigInt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sectorId  BigInt
+  sector    Sector   @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([userId, sectorId])
+  @@map("user_sector")
 }
