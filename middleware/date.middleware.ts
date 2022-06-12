@@ -1,6 +1,6 @@
 // UTC -> KST
-import * as dayjs from "dayjs";
-import { isPrimitive } from "util";
+import * as dayjs from 'dayjs';
+import { isPrimitive } from 'util';
 
 function add9Hours(obj: Record<string, unknown>) {
   if (!obj) return;

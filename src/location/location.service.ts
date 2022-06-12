@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { CreateLocationInput } from "./dto/create-location.input";
-import { UpdateLocationInput } from "./dto/update-location.input";
-import { ApolloError } from "apollo-server-core";
-import prisma from "@libs/prisma-client";
+import { Injectable } from '@nestjs/common';
+import { CreateLocationInput } from './dto/create-location.input';
+import { UpdateLocationInput } from './dto/update-location.input';
+import { ApolloError } from 'apollo-server-core';
+import prisma from '@libs/prisma-client';
 
 @Injectable()
 export class LocationService {

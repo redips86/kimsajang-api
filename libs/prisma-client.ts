@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-import dateMiddleware from "../middleware/date.middleware";
-import softReadMiddleware from "../middleware/soft-read.middleware";
+import { PrismaClient } from '@prisma/client';
+import dateMiddleware from '../middleware/date.middleware';
+import softReadMiddleware from '../middleware/soft-read.middleware';
 
 declare global {
   // eslint-disable-next-line no-var
