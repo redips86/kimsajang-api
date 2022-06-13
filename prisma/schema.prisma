@@ -18,7 +18,7 @@ model User {
   deleted    Boolean      @default(false)
   nickname   String?
   intro      String?
-  UserTag    UserTag[]
+  userTag    UserTag[]
   location   Location?    @relation(fields: [locationId], references: [id], onDelete: Cascade)
   locationId BigInt?      @map("location_id")
   userSector UserSector[]
@@ -34,7 +34,7 @@ model Tag {
   category  String?
   name      String
   deleted   Boolean   @default(false)
-  UserTag   UserTag[]
+  userTag   UserTag[]
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
@@ -43,9 +43,9 @@ model Tag {
 
 /// 사용자_태그
 model UserTag {
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
   userId    BigInt
-  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id])
   tagId     BigInt
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

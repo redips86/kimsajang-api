@@ -21,6 +21,11 @@ input CreateUserInput {
   sectorIds: [Float!]
 }
 
+input CreateUserTagInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Location {
   """생성일시"""
   createdAt: String!
@@ -41,16 +46,21 @@ type Location {
 type Mutation {
   createLocation(createLocationInput: CreateLocationInput!): String!
   createUser(createUserInput: CreateUserInput!): Boolean!
+  createUserTag(createUserTagInput: CreateUserTagInput!): UserTag!
   removeLocation(id: Int!): Location!
   removeUser(id: Int!): Boolean!
+  removeUserTag(id: Int!): Float!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   updateUser(updateUserInput: UpdateUserInput!): Boolean!
+  updateUserTag(updateUserTagInput: UpdateUserTagInput!): UserTag!
 }
 
 type Query {
   location(id: Int!): Location!
   locations: [Location!]!
   user(id: Int!): User!
+  userTag(id: Int!): UserTag!
+  userTags: [UserTag!]!
   users: [User!]!
 }
 
@@ -79,6 +89,12 @@ input UpdateUserInput {
   sectorIds: [Float!]
 }
 
+input UpdateUserTagInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
 type User {
   """생성일시"""
   createdAt: String!
@@ -100,4 +116,18 @@ type User {
 
   """수정일시"""
   updatedAt: String!
+}
+
+type UserTag {
+  """생성일시"""
+  createdAt: String!
+
+  """Example field (placeholder)"""
+  tagId: Int!
+
+  """수정일시"""
+  updatedAt: String!
+
+  """Example field (placeholder)"""
+  userId: Int!
 }

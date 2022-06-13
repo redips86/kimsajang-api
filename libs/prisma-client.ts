@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import dateMiddleware from '../middleware/date.middleware';
-import softReadMiddleware from '../middleware/soft-read.middleware';
+import dateKstMw from '../prisma/date-kst-mw';
+import softReadMw from '../prisma/soft-read-mw';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -11,8 +11,8 @@ const prisma = global.client || new PrismaClient({ log: ['query'] });
 
 if (process.env.NODE_ENV === 'development') global.client = client;
 
-dateMiddleware(prisma);
-softReadMiddleware(prisma);
-softReadMiddleware(prisma);
+dateKstMw(prisma);
+softReadMw(prisma);
+softReadMw(prisma);
 
 export default prisma;

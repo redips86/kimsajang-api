@@ -5,6 +5,7 @@ import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UserModule } from './user/user.module';
 import { LocationModule } from './location/location.module';
+import { UserTagModule } from './user-tag/user-tag.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LocationModule } from './location/location.module';
     }),
     UserModule,
     LocationModule,
+    UserTagModule,
   ],
 })
 export class AppModule {}

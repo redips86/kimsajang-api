@@ -30,7 +30,7 @@ function prismaTimeMod<T>(value: T): T {
   return value;
 }
 
-function dateMiddleware(prisma) {
+function dateKstMw(prisma) {
   prisma.$use(async (params, next) => {
     const result = await next(params);
 
@@ -38,4 +38,4 @@ function dateMiddleware(prisma) {
   });
 }
 
-export default dateMiddleware;
+export default dateKstMw;
