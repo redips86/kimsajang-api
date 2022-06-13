@@ -2,22 +2,22 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
+  //  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  //  referentialIntegrity = "prisma"
 }
 
 /// 사용자
 model User {
   id         BigInt       @id @default(autoincrement())
   deleted    Boolean      @default(false)
-  nickname   String?
-  intro      String?
+  nickname   String?      @db.VarChar(40)
+  intro      String?      @db.VarChar(255)
   userTag    UserTag[]
   location   Location?    @relation(fields: [locationId], references: [id], onDelete: Cascade)
   locationId BigInt?      @map("location_id")
@@ -25,14 +25,16 @@ model User {
   createdAt  DateTime     @default(now()) @map("created_at")
   updatedAt  DateTime     @updatedAt @map("updated_at")
 
+  postCreatedBy Post[] @relation(name: "postCreatedBy")
+  postUpdatedBy Post[] @relation(name: "postUpdatedBy")
   @@map("user")
 }
 
 /// 태그
 model Tag {
   id        BigInt    @id @default(autoincrement())
-  category  String?
-  name      String
+  category  String?   @db.VarChar(40)
+  name      String    @db.VarChar(40)
   deleted   Boolean   @default(false)
   userTag   UserTag[]
   createdAt DateTime  @default(now()) @map("created_at")
@@ -43,9 +45,9 @@ model Tag {
 
 /// 사용자_태그
 model UserTag {
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    BigInt
-  tag       Tag      @relation(fields: [tagId], references: [id])
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
   tagId     BigInt
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -57,7 +59,7 @@ model UserTag {
 /// 지역
 model Location {
   id        BigInt   @id @default(autoincrement())
-  name      String
+  name      String   @db.VarChar(40)
   deleted   Boolean  @default(false)
   user      User[]
   createdAt DateTime @default(now()) @map("created_at")
@@ -69,11 +71,11 @@ model Location {
 /// 업종
 model Sector {
   id         BigInt       @id @default(autoincrement())
-  createdAt  DateTime     @default(now()) @map("created_at")
-  updatedAt  DateTime     @updatedAt @map("updated_at")
-  name       String
+  name       String       @db.VarChar(40)
   deleted    Boolean      @default(false)
   userSector UserSector[]
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
 
   @@map("sector")
 }
@@ -89,4 +91,64 @@ model UserSector {
 
   @@id([userId, sectorId])
   @@map("user_sector")
+}
+
+// 글
+model Post {
+  id         BigInt      @id @default(autoincrement())
+  categoryId BigInt?
+  category   Category?   @relation(fields: [categoryId], references: [id])
+  title      String      @db.VarChar(255)
+  content    String      @db.Text
+  postImages PostImage[]
+  like       Int         @default(0)
+  report     Int         @default(0)
+  deleted    Boolean     @default(false)
+  createdId  BigInt
+  createdBy  User        @relation(name: "postCreatedBy", fields: [createdId], references: [id])
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedId  BigInt?
+  updatedBy  User?       @relation(name: "postUpdatedBy", fields: [updatedId], references: [id])
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  comment Comment[]
+
+
+  @@map("post")
+}
+
+// 댓글
+model Comment {
+  id      BigInt  @id @default(autoincrement())
+  post    Post    @relation(fields: [postId], references: [id])
+  postId  BigInt
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+
+  @@map("comment")
+}
+
+// 글 이미지
+model PostImage {
+  id       BigInt @id @default(autoincrement())
+  imageUrl String @map("image_url") @db.VarChar(512)
+  Post     Post   @relation(fields: [postId], references: [id])
+  postId   BigInt
+
+  @@map("post_image")
+}
+
+// 카테고리
+model Category {
+  id      BigInt  @id @default(autoincrement())
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  Post      Post[]
+
+  @@map("category")
 }
