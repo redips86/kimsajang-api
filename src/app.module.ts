@@ -11,9 +11,9 @@ import { UserTagModule } from './user-tag/user-tag.module';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     UserModule,
