@@ -53,6 +53,7 @@ type Query {
   location(id: Int!): Location!
   locations: [Location!]!
   user(id: Int!): User!
+  userByEmail(email: String!, password: String!): User!
   userTag(id: Int!): UserTag!
   userTags: [UserTag!]!
   users: [User!]!

@@ -15,4 +15,12 @@ export class UserQueryResolver {
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.userService.findOne(id);
   }
+
+  @Query(() => User, { name: 'userByEmail' })
+  findOneByEmail(
+    @Args('email', { type: () => String }) email: string,
+    @Args('password', { type: () => String }) password: string,
+  ) {
+    return this.userService.findUser(email, password);
+  }
 }

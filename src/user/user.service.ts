@@ -4,7 +4,7 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-core';
 import { LocationService } from '../location/location.service';
 import prisma from '@libs/prisma-client';
-import encrypt from '@libs/encrypt';
+import { encrypt, compare } from '@libs/encrypt';
 
 @Injectable()
 export class UserService {
@@ -39,6 +39,25 @@ export class UserService {
     });
 
     return JSON.parse(JSON.stringify(users));
+  }
+
+  async findUser(email: string, password: string) {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new ApolloError('아이디나 비밀번호가 일치하지 않습니다.');
+    }
+
+    const checkPw = await compare(password, user.password);
+    if (!checkPw) {
+      throw new ApolloError('아이디나 비밀번호가 일치하지 않습니다.');
+    }
+
+    return JSON.parse(JSON.stringify(user));
   }
 
   async findOne(id: number) {
