@@ -11,6 +11,16 @@ export class UserService {
   constructor(private readonly locationService: LocationService) {}
 
   async create(createUserInput: CreateUserInput) {
+    const exists = await prisma.user.findFirst({
+      where: {
+        email: createUserInput.email,
+      },
+    });
+    console.log(exists);
+    if (exists) {
+      throw new ApolloError(`이미 존재하는 회원입니다.`);
+    }
+
     createUserInput.password = await encrypt(createUserInput.password);
 
     await prisma.user.create({
