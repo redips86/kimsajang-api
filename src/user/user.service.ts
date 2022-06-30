@@ -4,13 +4,18 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-core';
 import { LocationService } from '../location/location.service';
 import prisma from '@libs/prisma-client';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(private readonly locationService: LocationService) {}
 
   async create(createUserInput: CreateUserInput) {
-    await this.locationService.findOne(createUserInput.locationId);
+    const saltOrRounds = 10;
+    createUserInput.password = await bcrypt.hash(
+      createUserInput.password,
+      saltOrRounds,
+    );
 
     await prisma.user.create({
       data: {

@@ -15,6 +15,8 @@ datasource db {
 /// 사용자
 model User {
   id         BigInt       @id @default(autoincrement())
+  email      String       @db.VarChar(255)
+  password   String       @db.VarChar(255)
   deleted    Boolean      @default(false)
   nickname   String?      @db.VarChar(40)
   intro      String?      @db.VarChar(255)

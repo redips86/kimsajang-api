@@ -8,17 +8,11 @@ input CreateLocationInput {
 }
 
 input CreateUserInput {
-  """자기소개"""
-  intro: String
-
-  """지역"""
-  locationId: Float
-
   """닉네임"""
-  nickname: String
+  email: String
 
-  """업종"""
-  sectorIds: [Float!]
+  """자기소개"""
+  password: String
 }
 
 input CreateUserTagInput {
@@ -73,20 +67,14 @@ input UpdateLocationInput {
 }
 
 input UpdateUserInput {
+  """닉네임"""
+  email: String
+
   """사용자 ID"""
   id: Int!
 
   """자기소개"""
-  intro: String
-
-  """지역"""
-  locationId: Float
-
-  """닉네임"""
-  nickname: String
-
-  """업종"""
-  sectorIds: [Float!]
+  password: String
 }
 
 input UpdateUserTagInput {
